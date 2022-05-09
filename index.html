@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- 采用echarts官网自定义的包减小体积 -->
+    <script src="./echarts.min.js"></script>
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div id="fist" style="width: 600px; height: 400px"></div>
+      <div id="second" style="width: 600px; height: 400px"></div>
+      <div id="third" style="width: 600px; height: 400px"></div>
+    </div>
+
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+
+      var firstChart = echarts.init(document.getElementById('fist'));
+      var secondChart = echarts.init(document.getElementById('second'));
+      var thirdChart = echarts.init(document.getElementById('third'));
+      // 指定图表的配置项和数据
+      var option1 = {
+        title: {
+          text: 'ECharts 入门示例',
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量'],
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20],
+          },
+        ],
+      };
+      var option2 = {
+        title: {
+          text: 'ECharts 入门示例',
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量'],
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20],
+          },
+        ],
+      };
+      var option3 = {
+        title: {
+          text: 'ECharts 入门示例',
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量'],
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20],
+          },
+        ],
+      };
+      // 请求相关数据
+      fetch('http://127.0.0.1:4523/mock/956513/pet/findByStatus', {
+        // 配置请求头，可自定义参数
+        headers: {
+          accept: '*/*',
+          'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+          'sec-fetch-dest': 'empty',
+          'sec-fetch-mode': 'cors',
+          'sec-fetch-site': 'same-site',
+        },
+        body: null,
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          // 填充数据
+          option1.series[0].data = data[0].tags.map((item) => item.id);
+          option2.series[0].data = data[0].tags.map((item) => item.id);
+          option3.series[0].data = data[0].tags.map((item) => item.id);
+        })
+        .catch((error) => {
+          console.log(error, 'Error');
+          throw new Error(error);
+        })
+        .finally(() => {
+          // 使用刚指定的配置项和数据显示图表。
+          firstChart.setOption(option1);
+          secondChart.setOption(option2);
+          thirdChart.setOption(option3);
+        });
+    </script>
+  </body>
+</html>
